@@ -1,5 +1,5 @@
 package main
-
+/*
 import (
     "encoding/json"
     "log"
@@ -30,3 +30,4 @@ func main() {
     http.HandleFunc("/test", test)
     log.Fatal(http.ListenAndServe(":8085", nil))
 }
+*/

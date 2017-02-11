@@ -28,10 +28,8 @@ func main() {
         storeUser(r)
 
     })
-
-
-    // Continue to process new requests until an error occurs
-    log.Fatal(http.ListenAndServe(":8003", nil))
+        // Continue to process new requests until an error occurs
+    log.Fatal(http.ListenAndServe(":8004", nil))
 
 }
 
@@ -73,12 +71,14 @@ func storeUser(r *http.Request) {
 		panic(err)
 	}
 
-	result := User{}
-	if err := PatientsTable.Where(gocassa.Eq("ID", user.ID)).ReadOne(&result).Run(); err != nil {
+	
+	 http.HandleFunc("/users/id", func(w http.ResponseWriter, r *http.Request) {
+            result := User{}
+        if err := PatientsTable.Where(gocassa.Eq("ID", user.ID)).ReadOne(&result).Run(); err != nil {
 		panic(err)
 	}
-	fmt.Println(result)
-
+	fmt.Fprintf(w, "%+v\n", result)
+	})
 }
 
 
